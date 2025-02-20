@@ -1,26 +1,28 @@
 # Google Drive Clone
 
- 
+My google drive clone based on https://github.com/t3dotgg/drive-tutorial. 
 
 ## Getting Started
 
-1. 
+1. Clone the repository:
 
-```nodejs
-
+```bash
+git clone https://github.com/Endeyr/rs3-gim
 ```
 
 2. Install dependencies: 
 
-```nodejs
+```bash
 npm install
 ```
 
 3. Run the development server:
 
-```nodejs
+```bash
 npm run dev
 ```
+
+The application will be available at http://localhost:3000.
 
 ## Scripts
 
