@@ -1,13 +1,13 @@
-# NextJs Template
+# Google Drive Clone
 
-This template is a modern [Next.js](https://nextjs.org) setup follwing best practices for web development. It utilizes popular libraries such as zod and react hook forms to improve the UX and UI. 
+ 
 
 ## Getting Started
 
-1. Create with template:
+1. 
 
 ```nodejs
-npx create-next-app@latest <project-name> -e "https://github.com/Endeyr/nextjs-template"
+
 ```
 
 2. Install dependencies: 
