@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronRight, FileIcon, Folder, Upload } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
-import { mockFiles } from '../lib/mock-data';
+import { File, mockFiles } from '../lib/mock-data';
 
 export default function GoogleDriveClone() {
   const [currentFolder, setCurrentFolder] = useState<string | null>(null);
@@ -50,7 +50,7 @@ export default function GoogleDriveClone() {
             >
               My Drive
             </Button>
-            {getBreadcrumbs().map((folder) => (
+            {getBreadcrumbs().map((folder, index) => (
               <div key={folder.id} className='flex items-center'>
                 <ChevronRight className='mx-2 text-gray-500' size={16} />
                 <Button
