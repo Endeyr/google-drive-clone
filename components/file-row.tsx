@@ -1,5 +1,6 @@
 import type { File as FileT, Folder as FolderT } from '@/lib/mock-data';
 import { FileIcon, Folder as FolderIcon } from 'lucide-react';
+import Link from 'next/link';
 
 interface FileProps {
   file: FileT;
@@ -12,14 +13,14 @@ export const FileRow = ({ file }: FileProps) => {
     >
       <div className='grid grid-cols-12 items-center gap-4'>
         <div className='col-span-6 flex items-center'>
-          <a
+          <Link
             href={file.url}
             className='flex items-center text-gray-100 hover:text-blue-400'
             target='_blank'
           >
             <FileIcon className='mr-3' size={20} />
             {file.name}
-          </a>
+          </Link>
         </div>
         <div className='col-span-3 text-gray-400'>{'File'}</div>
         <div className='col-span-3 text-gray-400'>{file.size}</div>
