@@ -4,7 +4,7 @@ export interface File {
   type: 'file';
   url: string;
   parent: string;
-  size: string;
+  size: number;
 }
 
 export type Folder = {
@@ -19,7 +19,7 @@ export const mockFolders: Folder[] = [
   { id: '1', name: 'Documents', type: 'folder', parent: 'root' },
   { id: '2', name: 'Images', type: 'folder', parent: 'root' },
   { id: '3', name: 'Work', type: 'folder', parent: 'root' },
-  { id: '8', name: 'Presentations', type: 'folder', parent: '3' },
+  { id: '4', name: 'Presentations', type: 'folder', parent: '3' },
 ];
 
 export const mockFiles: File[] = [
@@ -29,7 +29,7 @@ export const mockFiles: File[] = [
     type: 'file',
     url: '/files/resume.pdf',
     parent: 'root',
-    size: '1.2 MB',
+    size: 50000,
   },
   {
     id: '5',
@@ -37,7 +37,7 @@ export const mockFiles: File[] = [
     type: 'file',
     url: '/files/proposal.docx',
     parent: '1',
-    size: '2.5 MB',
+    size: 50000,
   },
   {
     id: '6',
@@ -45,7 +45,7 @@ export const mockFiles: File[] = [
     type: 'file',
     url: '/files/vacation.jpg',
     parent: '2',
-    size: '3.7 MB',
+    size: 50000,
   },
   {
     id: '7',
@@ -53,7 +53,7 @@ export const mockFiles: File[] = [
     type: 'file',
     url: '/files/profile.png',
     parent: '2',
-    size: '1.8 MB',
+    size: 50000,
   },
 
   {
@@ -62,7 +62,7 @@ export const mockFiles: File[] = [
     type: 'file',
     url: '/files/q4-report.pptx',
     parent: '8',
-    size: '5.2 MB',
+    size: 50000,
   },
   {
     id: '10',
@@ -70,6 +70,6 @@ export const mockFiles: File[] = [
     type: 'file',
     url: '/files/budget.xlsx',
     parent: '3',
-    size: '1.5 MB',
+    size: 50000,
   },
 ];
