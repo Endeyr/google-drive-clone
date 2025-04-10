@@ -5,7 +5,7 @@ interface SandboxPageProps {}
 const SandboxPage = ({}: SandboxPageProps) => {
   return (
     <div className='flex flex-col gap-4'>
-      Seed Function {''}
+      Seed Function
       <form
         action={async () => {
           'use server';
