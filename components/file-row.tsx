@@ -1,9 +1,9 @@
-import type { File as FileT, Folder as FolderT } from '@/lib/mock-data';
+import type { files, folders } from '@/server/db/schema';
 import { FileIcon, Folder as FolderIcon } from 'lucide-react';
 import Link from 'next/link';
 
 interface FileProps {
-  file: FileT;
+  file: typeof files.$inferSelect;
 }
 export const FileRow = ({ file }: FileProps) => {
   return (
@@ -30,7 +30,7 @@ export const FileRow = ({ file }: FileProps) => {
 };
 
 interface FolderProps {
-  folder: FolderT;
+  folder: typeof folders.$inferSelect;
   handleFolderClick: () => void;
 }
 
