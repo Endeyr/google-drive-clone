@@ -31,10 +31,9 @@ export const FileRow = ({ file }: FileProps) => {
 
 interface FolderProps {
   folder: typeof folders.$inferSelect;
-  handleFolderClick: () => void;
 }
 
-export const FolderRow = ({ folder, handleFolderClick }: FolderProps) => {
+export const FolderRow = ({ folder }: FolderProps) => {
   return (
     <li
       key={folder.id}
@@ -42,13 +41,13 @@ export const FolderRow = ({ folder, handleFolderClick }: FolderProps) => {
     >
       <div className='grid grid-cols-12 items-center gap-4'>
         <div className='col-span-6 flex items-center'>
-          <button
-            onClick={() => handleFolderClick()}
+          <Link
+            href={`/f/${folder.id}`}
             className='flex items-center text-gray-100 hover:text-blue-400'
           >
             <FolderIcon className='mr-3' size={20} />
             {folder.name}
-          </button>
+          </Link>
         </div>
         <div className='col-span-3 text-gray-400'></div>
         <div className='col-span-3 text-gray-400'></div>
