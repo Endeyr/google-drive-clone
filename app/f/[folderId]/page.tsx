@@ -1,8 +1,8 @@
 import DriveContents from '@/app/drive-context';
 import { db } from '@/server/db/index';
 import {
-  files as filesSchema,
-  folders as foldersSchema,
+  file_table as filesSchema,
+  folder_table as foldersSchema,
 } from '@/server/db/schema';
 import { eq } from 'drizzle-orm';
 
