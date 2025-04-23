@@ -14,16 +14,10 @@ export default async function GoogleDriveClone(props: {
     return <div>Invalid folder ID</div>;
   }
 
-  const filesPromise = getFiles(parsedFolderId);
-
-  const foldersPromise = getFolders(parsedFolderId);
-
-  const parentsPromise = getAllParentsForFolder(parsedFolderId);
-
-  const [folders, files, parents] = await Promise.all([
-    foldersPromise,
-    filesPromise,
-    parentsPromise,
+  const [files, folders, parents] = await Promise.all([
+    getFiles(parsedFolderId),
+    getFolders(parsedFolderId),
+    getAllParentsForFolder(parsedFolderId),
   ]);
 
   return <DriveContents files={files} folders={folders} parents={parents} />;
