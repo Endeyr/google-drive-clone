@@ -1,3 +1,5 @@
+import 'server-only';
+
 import { db } from '@/server/db/index';
 import {
   file_table as filesSchema,
