@@ -1,4 +1,6 @@
-import 'server-only';
+if (process.env.NEXT_RUNTIME) {
+  require('server-only');
+}
 
 import {
   bigint,
