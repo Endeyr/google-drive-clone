@@ -1,26 +1,19 @@
 'use client';
 
 import { FileRow, FolderRow } from '@/components/file-row';
-import { Button } from '@/components/ui/button';
 import type { file_table, folder_table } from '@/server/db/schema';
-import {
-  SignedIn,
-  SignedOut,
-  SignIn,
-  SignInButton,
-  UserButton,
-} from '@clerk/nextjs';
-import { ChevronRight, Upload } from 'lucide-react';
+import { UploadButton } from '@/utils/uploadthing';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function DriveContents(props: {
   files: Array<typeof file_table.$inferSelect>;
   folders: Array<typeof folder_table.$inferSelect>;
   parents: Array<typeof folder_table.$inferSelect>;
 }) {
-  const handleUpload = () => {
-    alert('Upload functionality would be implemented here');
-  };
+  const navigate = useRouter();
 
   return (
     <div className='min-h-screen bg-gray-900 p-8 text-gray-100'>
@@ -66,6 +59,16 @@ export default function DriveContents(props: {
             {props.files?.map((file) => <FileRow key={file.id} file={file} />)}
           </ul>
         </div>
+        <UploadButton
+          endpoint='imageUploader'
+          onClientUploadComplete={() => {
+            navigate.refresh();
+          }}
+          onUploadError={(error: Error) => {
+            // Do something with the error.
+            alert(`ERROR! ${error.message}`);
+          }}
+        />
       </div>
     </div>
   );
