@@ -46,11 +46,12 @@ export const MUTATION = {
       name: string;
       size: number;
       url: string;
+      parent: number;
     };
     userId: string;
   }) => {
     return await db
       .insert(filesSchema)
-      .values({ ...input.file, parent: 2251799813685249 });
+      .values({ ...input.file, parent: input.file.parent });
   },
 };
