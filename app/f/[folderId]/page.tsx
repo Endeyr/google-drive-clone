@@ -1,4 +1,4 @@
-import DriveContents from '@/app/drive-context';
+import DriveContents from '@/app/f/[folderId]/drive-context';
 import { QUERY } from '@/server/db/queries';
 export default async function GoogleDriveClone(props: {
   params: Promise<{ folderId: string }>;
