@@ -1,10 +1,10 @@
-// app/providers.tsx
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
 import { usePostHog } from 'posthog-js/react';
 import { Suspense, useEffect } from 'react';
 
+import { useUser } from '@clerk/nextjs';
 import posthog from 'posthog-js';
 import { PostHogProvider as PHProvider } from 'posthog-js/react';
 
@@ -27,11 +27,24 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
 }
 
 function PostHogPageView() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const userInfo = useUser();
   const posthog = usePostHog();
+  const userId = userInfo.user?.id;
+
+  // Track user
+  useEffect(() => {
+    if (userId) {
+      posthog.identify(userId, {
+        email: userInfo.user?.emailAddresses[0]?.emailAddress,
+      });
+    } else {
+      posthog.reset();
+    }
+  }, [posthog, userId]);
 
   // Track pageviews
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   useEffect(() => {
     if (pathname && posthog) {
       let url = window.origin + pathname;

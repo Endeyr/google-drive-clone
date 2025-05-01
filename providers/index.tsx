@@ -7,11 +7,11 @@ interface Props {
 }
 const ProvidersWrapper = ({ children }: Props) => {
   return (
-    <PostHogProvider>
-      <ClerkProvider>
+    <ClerkProvider>
+      <PostHogProvider>
         <Layout>{children}</Layout>
-      </ClerkProvider>
-    </PostHogProvider>
+      </PostHogProvider>
+    </ClerkProvider>
   );
 };
 
