@@ -27,15 +27,15 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
 }
 
 function PostHogPageView() {
-  const userInfo = useUser();
+  const { user } = useUser();
   const posthog = usePostHog();
-  const userId = userInfo.user?.id;
+  const userId = user?.id;
 
   // Track user
   useEffect(() => {
     if (userId) {
       posthog.identify(userId, {
-        email: userInfo.user?.emailAddresses[0]?.emailAddress,
+        email: user?.emailAddresses[0]?.emailAddress,
       });
     } else {
       posthog.reset();
