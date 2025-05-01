@@ -9,6 +9,8 @@ import { file_table } from './db/schema';
 
 const utApi = new UTApi();
 
+// TODO deleteFolders - fetch all folders that have it as a parent and delete their children too
+
 export const deleteFile = async (fileId: number) => {
   const session = await auth();
   if (!session.userId) {
