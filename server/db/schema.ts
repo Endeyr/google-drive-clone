@@ -8,6 +8,7 @@ import {
   int,
   singlestoreTableCreator,
   text,
+  timestamp,
 } from 'drizzle-orm/singlestore-core';
 
 export const createTable = singlestoreTableCreator(
@@ -20,13 +21,18 @@ export const file_table = createTable(
     id: bigint('id', { mode: 'number', unsigned: true })
       .primaryKey()
       .autoincrement(),
+    ownerId: text('owner_id').notNull(),
     name: text('name').notNull(),
+    size: int('size').notNull(),
     url: text('url').notNull(),
     parent: bigint('parent', { mode: 'number', unsigned: true }).notNull(),
-    size: int('size').notNull(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
   },
   (t) => {
-    return [index('parent_index').on(t.parent)];
+    return [
+      index('parent_index').on(t.parent),
+      index('owner_id_index').on(t.ownerId),
+    ];
   }
 );
 
@@ -39,10 +45,15 @@ export const folder_table = createTable(
       .primaryKey()
       .autoincrement(),
     name: text('name').notNull(),
+    ownerId: text('owner_id').notNull(),
     parent: bigint('parent', { mode: 'number', unsigned: true }),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
   },
   (t) => {
-    return [index('parent_index').on(t.parent)];
+    return [
+      index('parent_index').on(t.parent),
+      index('owner_id_index').on(t.ownerId),
+    ];
   }
 );
 

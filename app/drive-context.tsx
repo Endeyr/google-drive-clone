@@ -12,6 +12,7 @@ export default function DriveContents(props: {
   files: Array<typeof file_table.$inferSelect>;
   folders: Array<typeof folder_table.$inferSelect>;
   parents: Array<typeof folder_table.$inferSelect>;
+  currentFolderId: number;
 }) {
   const navigate = useRouter();
 
@@ -68,6 +69,7 @@ export default function DriveContents(props: {
             // Do something with the error.
             alert(`ERROR! ${error.message}`);
           }}
+          input={{ folderId: props.currentFolderId }}
         />
       </div>
     </div>
