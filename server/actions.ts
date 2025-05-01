@@ -2,6 +2,7 @@
 
 import { auth } from '@clerk/nextjs/server';
 import { and, eq } from 'drizzle-orm';
+import { cookies } from 'next/headers';
 import { UTApi } from 'uploadthing/server';
 import { db } from './db';
 import { file_table } from './db/schema';
@@ -33,6 +34,10 @@ export const deleteFile = async (fileId: number) => {
   const dbResult = await db.delete(file_table).where(eq(file_table.id, fileId));
 
   console.log(dbResult);
+
+  // force next.js to revalidate data
+  const c = await cookies();
+  c.set('force-refresh', JSON.stringify(Math.random()));
 
   return { success: true };
 };
