@@ -3,8 +3,7 @@ import { MUTATION, QUERY } from '@/server/db/queries';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 
-interface Props {}
-const DrivePage = async (props: Props) => {
+const DrivePage = async () => {
   const session = await auth();
   if (!session.userId) {
     return redirect('/sign-in');
