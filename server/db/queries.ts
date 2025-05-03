@@ -58,6 +58,8 @@ export const QUERY = {
   },
 };
 
+// TODO create Folders - server action that takes a name and parentId and creates a folder with name and parentId
+
 export const MUTATION = {
   createFile: async (input: {
     file: {

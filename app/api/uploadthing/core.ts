@@ -6,6 +6,8 @@ import { MUTATION, QUERY } from './../../../server/db/queries';
 
 const f = createUploadthing();
 
+// TODO Folder uploading
+
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
   // Define as many FileRoutes as you like, each with a unique routeSlug
