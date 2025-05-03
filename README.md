@@ -75,6 +75,10 @@ The development dependencies include tools and libraries to aid in development:
 └── __test__ # Test files directory
 ```
 
+## DEMO
+
+Demo found on [Netlify](https://eloquent-lokum-f587c6.netlify.app/).
+
 ## License
 
 This project is licensed under the MIT License.
