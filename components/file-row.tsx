@@ -1,4 +1,4 @@
-import { deleteFile } from '@/server/actions';
+import { deleteFile, deleteFolder } from '@/server/actions';
 import type { file_table, folder_table } from '@/server/db/schema';
 import { FileIcon, Folder as FolderIcon, Trash2Icon } from 'lucide-react';
 import Link from 'next/link';
@@ -60,8 +60,17 @@ export const FolderRow = ({ folder }: FolderProps) => {
             {folder.name}
           </Link>
         </div>
+        <div className='col-span-2 text-gray-400'>{'Folder'}</div>
         <div className='col-span-3 text-gray-400'></div>
-        <div className='col-span-3 text-gray-400'></div>
+        <div className='col-span-1 text-gray-400'>
+          <Button
+            variant={'ghost'}
+            onClick={() => deleteFolder(folder.id)}
+            aria-label='delete folder'
+          >
+            <Trash2Icon size={20} />
+          </Button>
+        </div>
       </div>
     </li>
   );
