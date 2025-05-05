@@ -9,7 +9,7 @@ import { DB_FolderType, file_table, folder_table } from './db/schema';
 
 const utApi = new UTApi();
 
-const deleteChildren = async (folders: DB_FolderType[]) => {
+const deleteSubFolders = async (folders: DB_FolderType[]) => {
   for (const folder of folders) {
     // Recursively delete subfolders
     const children = await db
@@ -18,9 +18,7 @@ const deleteChildren = async (folders: DB_FolderType[]) => {
       .where(eq(folder_table.parent, folder.id));
 
     if (children.length > 0) {
-      const deleteFolderResult = await deleteChildren(children);
-
-      console.log(deleteFolderResult);
+      await deleteSubFolders(children);
     }
 
     // Delete files
@@ -29,15 +27,11 @@ const deleteChildren = async (folders: DB_FolderType[]) => {
       .from(file_table)
       .where(eq(file_table.parent, folder.id));
 
-    for (const file of files) {
-      const deleteFileResult = await deleteFile(file.id);
-      console.log(deleteFileResult);
-    }
+    await Promise.all(files.map((file) => deleteFile(file.id)));
 
     // Delete folder
     await db.delete(folder_table).where(eq(folder_table.id, folder.id));
   }
-  return { success: true };
 };
 
 export const deleteFolder = async (folderId: number) => {
@@ -48,7 +42,7 @@ export const deleteFolder = async (folderId: number) => {
   }
 
   // Get folder from database
-  const [folder] = await db
+  const folders = await db
     .select()
     .from(folder_table)
     .where(
@@ -59,28 +53,11 @@ export const deleteFolder = async (folderId: number) => {
     );
 
   // Return error if folder not found
-  if (!folder) {
+  if (folders.length === 0) {
     return { error: 'Folder not found' };
   }
 
-  // Grab children
-  const children = await db
-    .select()
-    .from(folder_table)
-    .where(eq(folder_table.parent, folder.id));
-
-  // Delete children
-  if (children.length > 0) {
-    const result = await deleteChildren(children);
-    console.log(result);
-  }
-
-  // Delete folder from database
-  const dbResult = await db
-    .delete(folder_table)
-    .where(eq(folder_table.id, folderId));
-
-  console.log(dbResult);
+  await deleteSubFolders(folders);
 
   // Force nextjs to revalidate data
   const c = await cookies();
@@ -105,15 +82,11 @@ export const deleteFile = async (fileId: number) => {
     return { error: 'File not found' };
   }
 
-  const utApiResult = await utApi.deleteFiles([
+  await utApi.deleteFiles([
     file.url.replace('https://mb8s2jfcos.ufs.sh/f/', ''),
   ]);
 
-  console.log(utApiResult);
-
-  const dbResult = await db.delete(file_table).where(eq(file_table.id, fileId));
-
-  console.log(dbResult);
+  await db.delete(file_table).where(eq(file_table.id, fileId));
 
   // force next.js to revalidate data
   const c = await cookies();
