@@ -61,6 +61,7 @@ export default function DriveContents(props: {
             {props.files?.map((file) => <FileRow key={file.id} file={file} />)}
           </ul>
         </div>
+        // TODO add folder button
         <UploadButton
           endpoint='driveUploader'
           onClientUploadComplete={() => {

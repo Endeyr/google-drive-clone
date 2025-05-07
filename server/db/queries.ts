@@ -58,9 +58,19 @@ export const QUERY = {
   },
 };
 
-// TODO create Folders - server action that takes a name and parentId and creates a folder with name and parentId
-
 export const MUTATION = {
+  createFolder: async (input: {
+    folder: {
+      name: string;
+      parent: number;
+    };
+    userId: string;
+  }) => {
+    return await db.insert(foldersSchema).values({
+      ...input.folder,
+      ownerId: input.userId,
+    });
+  },
   createFile: async (input: {
     file: {
       name: string;
