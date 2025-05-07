@@ -1,12 +1,10 @@
+import { MUTATION, QUERY } from '@/server/db/queries';
 import { auth } from '@clerk/nextjs/server';
 import { createUploadthing, type FileRouter } from 'uploadthing/next';
 import { UploadThingError } from 'uploadthing/server';
 import { z } from 'zod';
-import { MUTATION, QUERY } from './../../../server/db/queries';
 
 const f = createUploadthing();
-
-// TODO Folder uploading
 
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
