@@ -8,28 +8,40 @@ import {
 import { and, eq, isNull } from 'drizzle-orm';
 
 export const QUERY = {
-  getFolders: (folderId: number) => {
+  getFolders: (folderId: number, userId: string) => {
     return db
       .select()
       .from(foldersSchema)
-      .where(eq(foldersSchema.parent, folderId))
+      .where(
+        and(
+          eq(foldersSchema.ownerId, userId),
+          eq(foldersSchema.parent, folderId)
+        )
+      )
       .orderBy(foldersSchema.id);
   },
-  getFiles: (folderId: number) => {
+  getFiles: (folderId: number, userId: string) => {
     return db
       .select()
       .from(filesSchema)
-      .where(eq(filesSchema.parent, folderId))
+      .where(
+        and(eq(foldersSchema.ownerId, userId), eq(filesSchema.parent, folderId))
+      )
       .orderBy(filesSchema.id);
   },
-  getAllParentsForFolder: async (folderId: number) => {
+  getAllParentsForFolder: async (folderId: number, userId: string) => {
     const parents = [];
     let currentId: number | null = folderId;
     while (currentId !== null) {
       const folder = await db
         .selectDistinct()
         .from(foldersSchema)
-        .where(eq(foldersSchema.id, currentId));
+        .where(
+          and(
+            eq(foldersSchema.ownerId, userId),
+            eq(foldersSchema.id, currentId)
+          )
+        );
 
       if (!folder[0]) {
         throw new Error('Parent folder not found');

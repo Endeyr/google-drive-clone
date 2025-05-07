@@ -1,5 +1,7 @@
 import DriveContents from '@/app/f/[folderId]/drive-context';
 import { QUERY } from '@/server/db/queries';
+import { auth } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 export default async function GoogleDriveClone(props: {
   params: Promise<{ folderId: string }>;
 }) {
@@ -10,12 +12,16 @@ export default async function GoogleDriveClone(props: {
     return <div>Invalid folder ID</div>;
   }
 
-  // TODO add check for user is owner before showing files, when user isn't signed in, or wrong user signed in
+  const { userId } = await auth();
+
+  if (!userId) {
+    return redirect('/sign-in');
+  }
 
   const [files, folders, parents] = await Promise.all([
-    QUERY.getFiles(parsedFolderId),
-    QUERY.getFolders(parsedFolderId),
-    QUERY.getAllParentsForFolder(parsedFolderId),
+    QUERY.getFiles(parsedFolderId, userId),
+    QUERY.getFolders(parsedFolderId, userId),
+    QUERY.getAllParentsForFolder(parsedFolderId, userId),
   ]);
 
   return (
