@@ -25,7 +25,7 @@ export const QUERY = {
       .select()
       .from(filesSchema)
       .where(
-        and(eq(foldersSchema.ownerId, userId), eq(filesSchema.parent, folderId))
+        and(eq(filesSchema.ownerId, userId), eq(filesSchema.parent, folderId))
       )
       .orderBy(filesSchema.id);
   },
@@ -58,6 +58,13 @@ export const QUERY = {
       .from(foldersSchema)
       .where(eq(foldersSchema.id, folderId));
     return folder[0];
+  },
+  getFileById: async (fileId: number) => {
+    const file = await db
+      .select()
+      .from(filesSchema)
+      .where(eq(filesSchema.id, fileId));
+    return file[0];
   },
   getRootFolderForUser: async (userId: string) => {
     const folder = await db

@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   experimental: {
     reactCompiler: true,
   },
+  images: {
+    domains: ['mb8s2jfcos.ufs.sh'],
+  },
 };
 
 export default nextConfig;
