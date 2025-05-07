@@ -1,5 +1,6 @@
 'use client';
 
+import CreateFolderForm from '@/components/create-folder';
 import { FileRow, FolderRow } from '@/components/file-row';
 import type { file_table, folder_table } from '@/server/db/schema';
 import { UploadButton } from '@/utils/uploadthing';
@@ -61,18 +62,22 @@ export default function DriveContents(props: {
             {props.files?.map((file) => <FileRow key={file.id} file={file} />)}
           </ul>
         </div>
-        // TODO add folder button
-        <UploadButton
-          endpoint='driveUploader'
-          onClientUploadComplete={() => {
-            navigate.refresh();
-          }}
-          onUploadError={(error: Error) => {
-            // Do something with the error.
-            alert(`ERROR! ${error.message}`);
-          }}
-          input={{ folderId: props.currentFolderId }}
-        />
+        <div className='grid grid-cols-3 items-center justify-center'>
+          <CreateFolderForm currentFolderId={props.currentFolderId} />
+
+          <UploadButton
+            className='mt-2'
+            endpoint='driveUploader'
+            onClientUploadComplete={() => {
+              navigate.refresh();
+            }}
+            onUploadError={(error: Error) => {
+              // Do something with the error.
+              alert(`ERROR! ${error.message}`);
+            }}
+            input={{ folderId: props.currentFolderId }}
+          />
+        </div>
       </div>
     </div>
   );
